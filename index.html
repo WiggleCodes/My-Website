@@ -368,6 +368,7 @@
   }
   .compare-table table{
     width:100%;
+    min-width:640px;
     border-collapse:collapse;
     font-family:var(--mono);
     font-size:13px;
@@ -577,6 +578,7 @@
       </div>
 
       <div class="compare-table">
+        <div style="overflow-x:auto;">
         <table>
           <thead>
             <tr>
@@ -585,6 +587,8 @@
               <th>Google One</th>
               <th>iCloud+</th>
               <th>Dropbox</th>
+              <th>pCloud</th>
+              <th>OneDrive*</th>
             </tr>
           </thead>
           <tbody>
@@ -594,12 +598,16 @@
               <td class="dash">—</td>
               <td>£0.99/mo</td>
               <td class="dash">—</td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
             </tr>
             <tr>
               <td>200GB</td>
               <td class="self">£6/mo</td>
               <td>£7.99/mo</td>
               <td>£2.99/mo</td>
+              <td class="dash">—</td>
+              <td class="dash">—</td>
               <td class="dash">—</td>
             </tr>
             <tr>
@@ -608,6 +616,8 @@
               <td class="dash">— (no tier)</td>
               <td class="dash">— (no tier)</td>
               <td class="dash">— (no tier)</td>
+              <td>£4.99/mo</td>
+              <td class="dash">—</td>
             </tr>
             <tr>
               <td>1TB</td>
@@ -615,6 +625,8 @@
               <td class="dash">— (no tier)</td>
               <td class="dash">— (no tier)</td>
               <td class="dash">— (no tier)</td>
+              <td class="dash">— (no tier)</td>
+              <td>£7.99/mo</td>
             </tr>
             <tr>
               <td>2TB</td>
@@ -622,10 +634,13 @@
               <td>£15.99/mo</td>
               <td>£8.99/mo</td>
               <td>£9.99/mo</td>
+              <td>£9.99/mo</td>
+              <td class="dash">— (no tier)</td>
             </tr>
           </tbody>
         </table>
-        <p class="compare-note">Prices are the other providers' standard published UK rates and can change on their end — worth double-checking before quoting them to anyone. Google, Apple, and Dropbox don't sell 500GB or 1TB on their own — you'd have to jump straight to 2TB with them, which is exactly the gap Pro and Plus fill here.</p>
+        </div>
+        <p class="compare-note">Prices are the other providers' standard published UK rates and can change on their end — worth double-checking before quoting them to anyone. Google, Apple, Dropbox, and pCloud don't all sell every size on their own — several jumps go straight from one tier to a much bigger one, which is the gap the in-between plans here fill. *OneDrive's 1TB comes bundled with a Microsoft 365 Personal subscription (Word, Excel, etc.), not sold as storage alone, so it isn't a clean like-for-like comparison.</p>
       </div>
     </section>
 
