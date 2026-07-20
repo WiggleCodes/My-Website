@@ -361,6 +361,38 @@
   }
   .compare-strip strong{ color:var(--paper); }
 
+  .compare-table{
+    margin-top:36px;
+    border-top:1px solid var(--panel-line);
+    padding-top:28px;
+  }
+  .compare-table table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .compare-table th, .compare-table td{
+    text-align:left;
+    padding:10px 14px;
+    border:1px solid var(--panel-line);
+  }
+  .compare-table th{
+    color:var(--muted);
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:0.04em;
+    font-weight:600;
+  }
+  .compare-table td{ color:var(--paper); }
+  .compare-table td.self{ color:var(--amber); font-weight:600; }
+  .compare-table td.dash{ color:var(--muted); }
+  .compare-note{
+    margin-top:14px;
+    font-size:13.5px;
+    color:var(--muted);
+  }
+
   /* ---------- how it works ---------- */
   .steps{
     counter-reset:step;
@@ -544,7 +576,57 @@
         </div>
       </div>
 
-      <p class="compare-strip">Compare: Google One runs <strong>£7.99/mo</strong> for 200GB and <strong>£15.99/mo</strong> for 2TB. Same reliability, better value — and it's not owned by a faceless megacorp.</p>
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Storage</th>
+              <th>Reeces-IT</th>
+              <th>Google One</th>
+              <th>iCloud+</th>
+              <th>Dropbox</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>50GB</td>
+              <td class="self">£3/mo</td>
+              <td class="dash">—</td>
+              <td>£0.99/mo</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td>200GB</td>
+              <td class="self">£6/mo</td>
+              <td>£7.99/mo</td>
+              <td>£2.99/mo</td>
+              <td class="dash">—</td>
+            </tr>
+            <tr>
+              <td>500GB</td>
+              <td class="self">£12/mo</td>
+              <td class="dash">— (no tier)</td>
+              <td class="dash">— (no tier)</td>
+              <td class="dash">— (no tier)</td>
+            </tr>
+            <tr>
+              <td>1TB</td>
+              <td class="self">£18/mo</td>
+              <td class="dash">— (no tier)</td>
+              <td class="dash">— (no tier)</td>
+              <td class="dash">— (no tier)</td>
+            </tr>
+            <tr>
+              <td>2TB</td>
+              <td class="self">£30/mo</td>
+              <td>£15.99/mo</td>
+              <td>£8.99/mo</td>
+              <td>£9.99/mo</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="compare-note">Prices are the other providers' standard published UK rates and can change on their end — worth double-checking before quoting them to anyone. Google, Apple, and Dropbox don't sell 500GB or 1TB on their own — you'd have to jump straight to 2TB with them, which is exactly the gap Pro and Plus fill here.</p>
+      </div>
     </section>
 
     <section id="how">
