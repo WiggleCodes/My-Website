@@ -1,2 +1,585 @@
-# My-Website
-My Website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spare Room — Private Cloud Storage</title>
+<meta name="description" content="Private, encrypted cloud storage on a real home server. Run by a person, not a platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #12161C;
+    --panel:      #1A2029;
+    --panel-line: #2A3240;
+    --amber:      #E8A33D;
+    --amber-dim:  #6B551F;
+    --paper:      #EDEAE2;
+    --muted:      #8B95A5;
+    --good:       #6FCF97;
+
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+
+    --maxw: 1080px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--amber); color:var(--ink); }
+
+  :focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- background texture ---------- */
+  .grain{
+    position:fixed; inset:0;
+    pointer-events:none;
+    opacity:0.035;
+    z-index:0;
+    background-image:radial-gradient(var(--paper) 0.6px, transparent 0.6px);
+    background-size:3px 3px;
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(18,22,28,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--panel-line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px;
+    max-width:var(--maxw);
+    margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:16px;
+    letter-spacing:0.02em;
+    text-decoration:none;
+  }
+  .brand .led{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 8px 1px var(--amber);
+    flex:none;
+  }
+  .navlinks{
+    display:flex; gap:28px;
+    font-size:14px;
+    font-family:var(--mono);
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--muted);
+    transition:color .15s ease;
+  }
+  .navlinks a:hover{ color:var(--paper); }
+  .navlinks{ display:none; }
+  @media(min-width:720px){ .navlinks{ display:flex; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    padding:96px 0 64px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--amber);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:clamp(34px, 6vw, 60px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:0 0 22px;
+    max-width:14ch;
+  }
+  .lede{
+    font-size:clamp(16px,2vw,19px);
+    color:var(--muted);
+    max-width:52ch;
+    margin:0 0 36px;
+  }
+  .cta-row{
+    display:flex; flex-wrap:wrap; gap:14px;
+    margin-bottom:64px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono);
+    font-size:14px; font-weight:600;
+    padding:13px 22px;
+    border-radius:3px;
+    text-decoration:none;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background:var(--amber);
+    color:var(--ink);
+  }
+  .btn-primary:hover{ background:#f0b559; transform:translateY(-1px); }
+  .btn-ghost{
+    border:1px solid var(--panel-line);
+    color:var(--paper);
+  }
+  .btn-ghost:hover{ border-color:var(--muted); }
+
+  /* ---------- drive bay signature visual ---------- */
+  .rack{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:6px;
+    padding:22px 24px;
+    max-width:560px;
+  }
+  .rack-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:14px;
+    letter-spacing:0.04em;
+  }
+  .rack-head strong{ color:var(--paper); }
+  .bays{
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:6px;
+  }
+  .bay{
+    aspect-ratio:1/1.4;
+    border-radius:2px;
+    background:#10141A;
+    border:1px solid var(--panel-line);
+    position:relative;
+    overflow:hidden;
+  }
+  .bay::after{
+    content:'';
+    position:absolute; top:6px; left:50%;
+    transform:translateX(-50%);
+    width:5px; height:5px; border-radius:50%;
+    background:var(--panel-line);
+  }
+  .bay.filled{
+    background:linear-gradient(180deg,#241d10,#1a1610);
+    border-color:var(--amber-dim);
+  }
+  .bay.filled::after{
+    background:var(--amber);
+    box-shadow:0 0 6px 1px var(--amber);
+  }
+  .rack-foot{
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+  }
+  .rack-foot span{ color:var(--good); }
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; z-index:1; padding:64px 0; border-top:1px solid var(--panel-line); }
+  .section-label{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--amber);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin:0 0 12px;
+  }
+  h2{
+    font-family:var(--mono);
+    font-size:clamp(24px,3.4vw,34px);
+    margin:0 0 40px;
+    max-width:20ch;
+  }
+
+  /* ---------- why / checklist ---------- */
+  .checklist{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+    border-top:1px solid var(--panel-line);
+  }
+  @media(min-width:720px){ .checklist{ grid-template-columns:1fr 1fr; } }
+  .check-item{
+    display:flex; gap:14px;
+    padding:20px 4px;
+    border-bottom:1px solid var(--panel-line);
+  }
+  @media(min-width:720px){
+    .check-item:nth-child(odd){ border-right:1px solid var(--panel-line); padding-right:24px; }
+    .check-item:nth-child(even){ padding-left:24px; }
+  }
+  .check-item .led{
+    flex:none;
+    width:8px; height:8px; border-radius:50%;
+    margin-top:8px;
+    background:var(--good);
+    box-shadow:0 0 6px 1px rgba(111,207,151,0.6);
+  }
+  .check-item h3{
+    font-family:var(--sans);
+    font-size:16px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .check-item p{
+    margin:0;
+    color:var(--muted);
+    font-size:14.5px;
+  }
+
+  /* ---------- plans ---------- */
+  .plans{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  @media(min-width:640px){ .plans{ grid-template-columns:1fr 1fr; } }
+  @media(min-width:980px){ .plans{ grid-template-columns:repeat(5,1fr); } }
+
+  .plan{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:6px;
+    padding:22px 18px;
+    display:flex; flex-direction:column;
+    transition:border-color .15s ease;
+  }
+  .plan:hover{ border-color:var(--amber-dim); }
+  .plan.featured{ border-color:var(--amber); }
+  .plan-name{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:0 0 10px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .tag{
+    font-size:10px;
+    background:var(--amber);
+    color:var(--ink);
+    padding:2px 6px;
+    border-radius:2px;
+    font-weight:700;
+    letter-spacing:0.03em;
+  }
+  .plan-size{
+    font-family:var(--mono);
+    font-size:30px;
+    font-weight:700;
+    margin:0 0 2px;
+  }
+  .plan-price{
+    font-family:var(--mono);
+    color:var(--amber);
+    font-size:15px;
+    margin:0 0 16px;
+  }
+  .plan-price span{ color:var(--muted); font-size:12px; }
+
+  .gauge{
+    height:5px;
+    border-radius:3px;
+    background:#10141A;
+    overflow:hidden;
+    margin-bottom:16px;
+  }
+  .gauge i{
+    display:block; height:100%;
+    background:var(--amber);
+    border-radius:3px;
+  }
+
+  .plan-desc{
+    font-size:14px;
+    color:var(--muted);
+    margin:0;
+    flex-grow:1;
+  }
+
+  .compare-strip{
+    margin-top:36px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:var(--muted);
+    border-top:1px solid var(--panel-line);
+    padding-top:20px;
+  }
+  .compare-strip strong{ color:var(--paper); }
+
+  /* ---------- how it works ---------- */
+  .steps{
+    counter-reset:step;
+    display:grid;
+    gap:0;
+    border-top:1px solid var(--panel-line);
+  }
+  .step{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:18px;
+    padding:24px 0;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .step-num{
+    counter-increment:step;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--amber-dim);
+  }
+  .step-num::before{
+    content:"0" counter(step);
+    display:block;
+    font-size:22px;
+    color:var(--amber);
+  }
+  .step h3{
+    font-size:16px;
+    margin:2px 0 4px;
+  }
+  .step p{
+    color:var(--muted);
+    margin:0;
+    font-size:14.5px;
+    max-width:60ch;
+  }
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    text-align:left;
+  }
+  .contact-box{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:6px;
+    padding:36px;
+  }
+  .contact-box p{ color:var(--muted); max-width:56ch; }
+  .contact-actions{
+    display:flex; flex-wrap:wrap; gap:14px;
+    margin-top:22px;
+  }
+  .note{
+    margin-top:18px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--amber-dim);
+  }
+
+  footer{
+    border-top:1px solid var(--panel-line);
+    padding:32px 0 48px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;
+  }
+
+  @media(prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <nav>
+    <a href="#top" class="brand"><span class="led"></span>SPARE ROOM</a>
+    <div class="navlinks">
+      <a href="#plans">Plans</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" id="top" style="border-top:none; padding-top:96px;">
+      <p class="eyebrow">Private cloud storage · run by a person</p>
+      <h1>Your files live on a real machine, not a data centre.</h1>
+      <p class="lede">Back up your photos, videos, and documents to a home server — encrypted, archived, and reachable from your phone, tablet, or PC. No middleman, no ads, no algorithm deciding what matters.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-ghost" href="#plans">See plans</a>
+      </div>
+
+      <div class="rack" aria-label="Server capacity">
+        <div class="rack-head">
+          <span>BAY STATUS</span>
+          <strong>3 of 8 open</strong>
+        </div>
+        <div class="bays" id="bayGrid"></div>
+        <p class="rack-foot"><span>●</span> Spaces are genuinely limited — this is one box, not a server farm.</p>
+      </div>
+    </section>
+
+    <section id="why">
+      <p class="section-label">Why it's different</p>
+      <h2>Same job as the big clouds. None of the baggage.</h2>
+      <div class="checklist">
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>Private & encrypted access</h3><p>Your data is yours — encrypted in transit and at rest, with access only for you.</p></div>
+        </div>
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>Everything's archived</h3><p>Files are backed up, not just stored — so nothing gets lost or quietly overwritten.</p></div>
+        </div>
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>Upload from any device</h3><p>Phone, tablet, or PC — your files are there whenever you need them.</p></div>
+        </div>
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>No data-mining, no ads</h3><p>Nothing about your files is scanned, sold, or served back to you as an ad.</p></div>
+        </div>
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>Local support from a human</h3><p>Something wrong? You message me directly — not a chatbot, not a queue.</p></div>
+        </div>
+        <div class="check-item">
+          <span class="led"></span>
+          <div><h3>Honest pricing</h3><p>You're paying for storage, not shareholders. See exactly how it compares below.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plans">
+      <p class="section-label">Plans</p>
+      <h2>Pick a size, not a subscription tier you'll never use.</h2>
+
+      <div class="plans">
+        <div class="plan">
+          <p class="plan-name">Basic</p>
+          <p class="plan-size">50GB</p>
+          <p class="plan-price">£3<span>/month</span></p>
+          <div class="gauge"><i style="width:8%;"></i></div>
+          <p class="plan-desc">Perfect for photos & important docs.</p>
+        </div>
+        <div class="plan">
+          <p class="plan-name">Standard</p>
+          <p class="plan-size">200GB</p>
+          <p class="plan-price">£6<span>/month</span></p>
+          <div class="gauge"><i style="width:20%;"></i></div>
+          <p class="plan-desc">Great for family photo libraries & backups.</p>
+        </div>
+        <div class="plan featured">
+          <p class="plan-name">Pro <span class="tag">Popular</span></p>
+          <p class="plan-size">500GB</p>
+          <p class="plan-price">£12<span>/month</span></p>
+          <div class="gauge"><i style="width:45%;"></i></div>
+          <p class="plan-desc">For power users — big media libraries, full device backups.</p>
+        </div>
+        <div class="plan">
+          <p class="plan-name">Plus</p>
+          <p class="plan-size">1TB</p>
+          <p class="plan-price">£18<span>/month</span></p>
+          <div class="gauge"><i style="width:68%;"></i></div>
+          <p class="plan-desc">Serious archives — years of photos, full backups, no second-guessing what to keep.</p>
+        </div>
+        <div class="plan">
+          <p class="plan-name">Elite</p>
+          <p class="plan-size">2TB</p>
+          <p class="plan-price">£30<span>/month</span></p>
+          <div class="gauge"><i style="width:100%;"></i></div>
+          <p class="plan-desc">Multiple devices, full media libraries, total peace of mind.</p>
+        </div>
+      </div>
+
+      <p class="compare-strip">Compare: Google One runs <strong>£7.99/mo</strong> for 200GB and <strong>£15.99/mo</strong> for 2TB. Same reliability, better value — and it's not owned by a faceless megacorp.</p>
+    </section>
+
+    <section id="how">
+      <p class="section-label">How it works</p>
+      <h2>Three steps, no forms to fight with.</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num"></span>
+          <div><h3>Message me with the tier you want</h3><p>Tell me which plan fits, and I'll confirm there's a bay free for you.</p></div>
+        </div>
+        <div class="step">
+          <span class="step-num"></span>
+          <div><h3>I set up your private space</h3><p>Encrypted, access-controlled, and ready for your devices — usually same day.</p></div>
+        </div>
+        <div class="step">
+          <span class="step-num"></span>
+          <div><h3>Upload from anywhere</h3><p>Phone, tablet, or PC — your files sync and archive automatically from there.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <p class="section-label">Get in touch</p>
+      <div class="contact-box">
+        <h2 style="margin-bottom:8px;">Spaces are limited — I've only got so much room on the box.</h2>
+        <p>Drop me a message with the plan you're after and I'll let you know if there's a bay open.</p>
+        <div class="contact-actions">
+          <!-- Replace the email below with your real address -->
+          <a class="btn btn-primary" href="mailto:you@example.com?subject=Spare%20Room%20-%20I'm%20interested">Email me</a>
+        </div>
+        <p class="note">// TODO: swap in your real contact email or preferred messaging link above.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; width:100%;">
+    <span>SPARE ROOM — private storage on a home server</span>
+    <span>© <span id="year"></span></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Render the bay grid: 8 bays, 3 filled (matches "3 of 8 open" copy above)
+  const bays = document.getElementById('bayGrid');
+  const total = 8, filled = 5; // 5 filled = 3 open
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement('div');
+    b.className = 'bay' + (i < filled ? ' filled' : '');
+    bays.appendChild(b);
+  }
+</script>
+
+</body>
+</html>
