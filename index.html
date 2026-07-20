@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reece's IT — Private Cloud Storage</title>
-<meta name="description" content="Private, encrypted cloud storage on a real home server. Run by a person, not a platform.">
+<title>Terms of Service — Reeces-IT</title>
+<meta name="description" content="Reeces-IT private storage service agreement and terms of service.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
     --mono: 'IBM Plex Mono', ui-monospace, monospace;
     --sans: 'Inter', system-ui, sans-serif;
 
-    --maxw: 1080px;
+    --maxw: 800px;
   }
 
   *{ box-sizing:border-box; }
@@ -32,37 +32,15 @@
     background:var(--ink);
     color:var(--paper);
     font-family:var(--sans);
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  img,svg{ display:block; max-width:100%; }
-
   a{ color:inherit; }
-
   ::selection{ background:var(--amber); color:var(--ink); }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
 
-  :focus-visible{
-    outline:2px solid var(--amber);
-    outline-offset:3px;
-  }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
 
-  .wrap{
-    max-width:var(--maxw);
-    margin:0 auto;
-    padding:0 24px;
-  }
-
-  /* ---------- background texture ---------- */
-  .grain{
-    position:fixed; inset:0;
-    pointer-events:none;
-    opacity:0.035;
-    z-index:0;
-    background-image:radial-gradient(var(--paper) 0.6px, transparent 0.6px);
-    background-size:3px 3px;
-  }
-
-  /* ---------- nav ---------- */
   header{
     position:sticky; top:0; z-index:20;
     background:rgba(18,22,28,0.88);
@@ -72,7 +50,7 @@
   nav{
     display:flex; align-items:center; justify-content:space-between;
     padding:18px 24px;
-    max-width:var(--maxw);
+    max-width:1080px;
     margin:0 auto;
   }
   .brand{
@@ -88,318 +66,101 @@
     background:var(--amber);
     box-shadow:0 0 8px 1px var(--amber);
     flex:none;
+    animation:pulse-led 3.2s ease-in-out infinite;
   }
-  .navlinks{
-    display:flex; gap:28px;
-    font-size:14px;
+  @keyframes pulse-led{
+    0%, 100%{ background:var(--amber); box-shadow:0 0 8px 1px var(--amber); }
+    50%{ background:var(--good); box-shadow:0 0 8px 1px var(--good); }
+  }
+  .back{
     font-family:var(--mono);
-  }
-  .navlinks a{
-    text-decoration:none;
+    font-size:13px;
     color:var(--muted);
-    transition:color .15s ease;
+    text-decoration:none;
   }
-  .navlinks a:hover{ color:var(--paper); }
-  .navlinks{ display:none; }
-  @media(min-width:720px){ .navlinks{ display:flex; } }
+  .back:hover{ color:var(--paper); }
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative; z-index:1;
-    padding:96px 0 64px;
-  }
-  .eyebrow{
+  main{ padding:64px 0 96px; }
+
+  .doc-title{
     font-family:var(--mono);
     font-size:13px;
     color:var(--amber);
-    letter-spacing:0.08em;
     text-transform:uppercase;
-    margin:0 0 18px;
+    letter-spacing:0.08em;
+    margin:0 0 10px;
   }
   h1{
     font-family:var(--mono);
-    font-weight:700;
-    font-size:clamp(34px, 6vw, 60px);
-    line-height:1.05;
-    letter-spacing:-0.01em;
-    margin:0 0 22px;
-    max-width:14ch;
+    font-size:clamp(26px,4vw,38px);
+    line-height:1.15;
+    margin:0 0 8px;
   }
-  .lede{
-    font-size:clamp(16px,2vw,19px);
-    color:var(--muted);
-    max-width:52ch;
-    margin:0 0 36px;
-  }
-  .cta-row{
-    display:flex; flex-wrap:wrap; gap:14px;
-    margin-bottom:64px;
-  }
-  .btn{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--mono);
-    font-size:14px; font-weight:600;
-    padding:13px 22px;
-    border-radius:3px;
-    text-decoration:none;
-    transition:transform .15s ease, background .15s ease;
-  }
-  .btn-primary{
-    background:var(--amber);
-    color:var(--ink);
-  }
-  .btn-primary:hover{ background:#f0b559; transform:translateY(-1px); }
-  .btn-ghost{
-    border:1px solid var(--panel-line);
-    color:var(--paper);
-  }
-  .btn-ghost:hover{ border-color:var(--muted); }
-
-  /* ---------- drive bay signature visual ---------- */
-  .rack{
-    background:var(--panel);
-    border:1px solid var(--panel-line);
-    border-radius:6px;
-    padding:22px 24px;
-    max-width:560px;
-  }
-  .rack-head{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--muted);
-    margin-bottom:14px;
-    letter-spacing:0.04em;
-  }
-  .rack-head strong{ color:var(--paper); }
-  .bays{
-    display:grid;
-    grid-template-columns:repeat(8,1fr);
-    gap:6px;
-  }
-  .bay{
-    aspect-ratio:1/1.4;
-    border-radius:2px;
-    background:#10141A;
-    border:1px solid var(--panel-line);
-    position:relative;
-    overflow:hidden;
-  }
-  .bay::after{
-    content:'';
-    position:absolute; top:6px; left:50%;
-    transform:translateX(-50%);
-    width:5px; height:5px; border-radius:50%;
-    background:var(--panel-line);
-  }
-  .bay.filled{
-    background:linear-gradient(180deg,#241d10,#1a1610);
-    border-color:var(--amber-dim);
-  }
-  .bay.filled::after{
-    background:var(--amber);
-    box-shadow:0 0 6px 1px var(--amber);
-  }
-  .rack-foot{
-    margin-top:14px;
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--muted);
-  }
-  .rack-foot span{ color:var(--good); }
-
-  /* ---------- section shell ---------- */
-  section{ position:relative; z-index:1; padding:64px 0; border-top:1px solid var(--panel-line); }
-  .section-label{
-    font-family:var(--mono);
-    font-size:12px;
-    color:var(--amber);
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    margin:0 0 12px;
-  }
-  h2{
-    font-family:var(--mono);
-    font-size:clamp(24px,3.4vw,34px);
-    margin:0 0 40px;
-    max-width:20ch;
-  }
-
-  /* ---------- why / checklist ---------- */
-  .checklist{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:0;
-    border-top:1px solid var(--panel-line);
-  }
-  @media(min-width:720px){ .checklist{ grid-template-columns:1fr 1fr; } }
-  .check-item{
-    display:flex; gap:14px;
-    padding:20px 4px;
-    border-bottom:1px solid var(--panel-line);
-  }
-  @media(min-width:720px){
-    .check-item:nth-child(odd){ border-right:1px solid var(--panel-line); padding-right:24px; }
-    .check-item:nth-child(even){ padding-left:24px; }
-  }
-  .check-item .led{
-    flex:none;
-    width:8px; height:8px; border-radius:50%;
-    margin-top:8px;
-    background:var(--good);
-    box-shadow:0 0 6px 1px rgba(111,207,151,0.6);
-  }
-  .check-item h3{
-    font-family:var(--sans);
+  .subhead{
     font-size:16px;
-    font-weight:600;
-    margin:0 0 4px;
-  }
-  .check-item p{
-    margin:0;
     color:var(--muted);
-    font-size:14.5px;
+    margin:0 0 8px;
   }
-
-  /* ---------- plans ---------- */
-  .plans{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:16px;
-  }
-  @media(min-width:640px){ .plans{ grid-template-columns:1fr 1fr; } }
-  @media(min-width:980px){ .plans{ grid-template-columns:repeat(5,1fr); } }
-
-  .plan{
-    background:var(--panel);
-    border:1px solid var(--panel-line);
-    border-radius:6px;
-    padding:22px 18px;
-    display:flex; flex-direction:column;
-    transition:border-color .15s ease;
-  }
-  .plan:hover{ border-color:var(--amber-dim); }
-  .plan.featured{ border-color:var(--amber); }
-  .plan-name{
-    font-family:var(--mono);
-    font-size:13px;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:0.06em;
-    margin:0 0 10px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .tag{
-    font-size:10px;
-    background:var(--amber);
-    color:var(--ink);
-    padding:2px 6px;
-    border-radius:2px;
-    font-weight:700;
-    letter-spacing:0.03em;
-  }
-  .plan-size{
-    font-family:var(--mono);
-    font-size:30px;
-    font-weight:700;
-    margin:0 0 2px;
-  }
-  .plan-price{
-    font-family:var(--mono);
-    color:var(--amber);
-    font-size:15px;
-    margin:0 0 16px;
-  }
-  .plan-price span{ color:var(--muted); font-size:12px; }
-
-  .gauge{
-    height:5px;
-    border-radius:3px;
-    background:#10141A;
-    overflow:hidden;
-    margin-bottom:16px;
-  }
-  .gauge i{
-    display:block; height:100%;
-    background:var(--amber);
-    border-radius:3px;
-  }
-
-  .plan-desc{
-    font-size:14px;
-    color:var(--muted);
-    margin:0;
-    flex-grow:1;
-  }
-
-  .compare-strip{
-    margin-top:36px;
-    font-family:var(--mono);
-    font-size:13.5px;
-    color:var(--muted);
-    border-top:1px solid var(--panel-line);
-    padding-top:20px;
-  }
-  .compare-strip strong{ color:var(--paper); }
-
-  /* ---------- how it works ---------- */
-  .steps{
-    counter-reset:step;
-    display:grid;
-    gap:0;
-    border-top:1px solid var(--panel-line);
-  }
-  .step{
-    display:grid;
-    grid-template-columns:56px 1fr;
-    gap:18px;
-    padding:24px 0;
-    border-bottom:1px solid var(--panel-line);
-  }
-  .step-num{
-    counter-increment:step;
-    font-family:var(--mono);
-    font-size:13px;
-    color:var(--amber-dim);
-  }
-  .step-num::before{
-    content:"0" counter(step);
-    display:block;
-    font-size:22px;
-    color:var(--amber);
-  }
-  .step h3{
-    font-size:16px;
-    margin:2px 0 4px;
-  }
-  .step p{
-    color:var(--muted);
-    margin:0;
-    font-size:14.5px;
-    max-width:60ch;
-  }
-
-  /* ---------- contact / footer ---------- */
-  .contact{
-    text-align:left;
-  }
-  .contact-box{
-    background:var(--panel);
-    border:1px solid var(--panel-line);
-    border-radius:6px;
-    padding:36px;
-  }
-  .contact-box p{ color:var(--muted); max-width:56ch; }
-  .contact-actions{
-    display:flex; flex-wrap:wrap; gap:14px;
-    margin-top:22px;
-  }
-  .note{
-    margin-top:18px;
+  .disclaimer{
     font-family:var(--mono);
     font-size:12.5px;
     color:var(--amber-dim);
+    font-style:italic;
+    margin:0 0 40px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--panel-line);
   }
+
+  h2{
+    font-family:var(--mono);
+    font-size:19px;
+    color:var(--paper);
+    margin:40px 0 12px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  h2 .num{ color:var(--amber); }
+
+  p{ color:var(--paper); font-size:15px; margin:0 0 14px; }
+  p.muted{ color:var(--muted); }
+
+  ul{ margin:0 0 14px; padding-left:20px; }
+  li{ color:var(--paper); font-size:15px; margin-bottom:8px; }
+  li::marker{ color:var(--amber); }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:16px 0 24px;
+    font-size:14px;
+  }
+  th, td{
+    text-align:left;
+    padding:10px 12px;
+    border:1px solid var(--panel-line);
+  }
+  th{
+    background:var(--panel);
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--muted);
+  }
+  td{ color:var(--paper); }
+
+  .note-box{
+    margin-top:48px;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-left:3px solid var(--amber);
+    border-radius:4px;
+    padding:22px 24px;
+  }
+  .note-box h2{ margin-top:0; }
+  .note-box p{ font-size:14px; color:var(--muted); }
+  .note-box p strong{ color:var(--paper); }
 
   footer{
     border-top:1px solid var(--panel-line);
@@ -409,175 +170,115 @@
     color:var(--muted);
     display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;
   }
+  footer .wrap{ max-width:1080px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; width:100%; }
 
   @media(prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
-    *{ transition:none !important; }
+    .brand .led{ animation:none; }
   }
 </style>
 </head>
 <body>
-<div class="grain"></div>
 
 <header>
   <nav>
-    <a href="#top" class="brand"><span class="led"></span>Reece's IT</a>
-    <div class="navlinks">
-      <a href="#plans">Plans</a>
-      <a href="#how">How it works</a>
-      <a href="#contact">Contact</a>
-    </div>
+    <a href="index.html" class="brand"><span class="led"></span>REECES-IT</a>
+    <a href="index.html" class="back">&larr; Back to site</a>
   </nav>
 </header>
 
 <main>
   <div class="wrap">
-    <section class="hero" id="top" style="border-top:none; padding-top:96px;">
-      <p class="eyebrow">Private cloud storage · run by a person</p>
-      <h1>Your files live on a real machine, not a data centre.</h1>
-      <p class="lede">Back up your photos, videos, and documents to a home server — encrypted, archived, and reachable from your phone, tablet, or PC. No middleman, no ads, no algorithm deciding what matters.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#contact">Get in touch</a>
-        <a class="btn btn-ghost" href="#plans">See plans</a>
-      </div>
+    <p class="doc-title">Legal</p>
+    <h1>Private Storage Service Agreement &amp; Terms of Service</h1>
+    <p class="subhead">Reeces-IT — private cloud storage on a home server</p>
+    <p class="disclaimer">Draft template — not legal advice. See the note at the end of this page before relying on it.</p>
 
-      <div class="rack" aria-label="Server capacity">
-        <div class="rack-head">
-          <span>BAY STATUS</span>
-          <strong>3 of 8 open</strong>
-        </div>
-        <div class="bays" id="bayGrid"></div>
-        <p class="rack-foot"><span>●</span> Spaces are genuinely limited — this is one box, not a server farm.</p>
-      </div>
-    </section>
+    <h2><span class="num">1.</span> The parties</h2>
+    <p>This agreement is between Reece Feetenby, trading as "Reeces-IT" ("the Provider", "I", "me"), and the individual purchasing a storage plan ("the Customer", "you"). By paying for and using the service, you agree to these terms.</p>
 
-    <section id="why">
-      <p class="section-label">Why it's different</p>
-      <h2>Same job as the big clouds. None of the baggage.</h2>
-      <div class="checklist">
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>Private & encrypted access</h3><p>Your data is yours — encrypted in transit and at rest, with access only for you.</p></div>
-        </div>
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>Everything's archived</h3><p>Files are backed up, not just stored — so nothing gets lost or quietly overwritten.</p></div>
-        </div>
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>Upload from any device</h3><p>Phone, tablet, or PC — your files are there whenever you need them.</p></div>
-        </div>
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>No data-mining, no ads</h3><p>Nothing about your files is scanned, sold, or served back to you as an ad.</p></div>
-        </div>
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>Local support from a human</h3><p>Something wrong? You message me directly — not a chatbot, not a queue.</p></div>
-        </div>
-        <div class="check-item">
-          <span class="led"></span>
-          <div><h3>Honest pricing</h3><p>You're paying for storage, not shareholders. See exactly how it compares below.</p></div>
-        </div>
-      </div>
-    </section>
+    <h2><span class="num">2.</span> What the service is</h2>
+    <p>Reeces-IT provides private, encrypted cloud storage hosted on the Provider's own network-attached storage (NAS) server(s), located in the UK. The service is intended for personal backup and storage of files such as photos, videos, and documents, accessible from the Customer's own devices.</p>
 
-    <section id="plans">
-      <p class="section-label">Plans</p>
-      <h2>Pick a size, not a subscription tier you'll never use.</h2>
+    <h2><span class="num">3.</span> Plans &amp; pricing</h2>
+    <table>
+      <thead>
+        <tr><th>Plan</th><th>Storage</th><th>Price</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Basic</td><td>50GB</td><td>£3/month</td><td>Photos &amp; important documents</td></tr>
+        <tr><td>Standard</td><td>200GB</td><td>£6/month</td><td>Family photo libraries &amp; backups</td></tr>
+        <tr><td>Pro</td><td>500GB</td><td>£12/month</td><td>Large media libraries, full device backups</td></tr>
+        <tr><td>Plus</td><td>1TB</td><td>£18/month</td><td>Serious archives, years of photos, full backups</td></tr>
+        <tr><td>Elite</td><td>2TB</td><td>£30/month</td><td>Multiple devices, full media libraries</td></tr>
+      </tbody>
+    </table>
+    <p>Prices are billed monthly in advance and are shown inclusive of any applicable costs unless stated otherwise. The Provider may introduce additional plans — including larger capacities across multiple servers — from time to time; any such changes will be posted on this page.</p>
 
-      <div class="plans">
-        <div class="plan">
-          <p class="plan-name">Basic</p>
-          <p class="plan-size">50GB</p>
-          <p class="plan-price">£3<span>/month</span></p>
-          <div class="gauge"><i style="width:8%;"></i></div>
-          <p class="plan-desc">Perfect for photos & important docs.</p>
-        </div>
-        <div class="plan">
-          <p class="plan-name">Standard</p>
-          <p class="plan-size">200GB</p>
-          <p class="plan-price">£6<span>/month</span></p>
-          <div class="gauge"><i style="width:20%;"></i></div>
-          <p class="plan-desc">Great for family photo libraries & backups.</p>
-        </div>
-        <div class="plan featured">
-          <p class="plan-name">Pro <span class="tag">Popular</span></p>
-          <p class="plan-size">500GB</p>
-          <p class="plan-price">£12<span>/month</span></p>
-          <div class="gauge"><i style="width:45%;"></i></div>
-          <p class="plan-desc">For power users — big media libraries, full device backups.</p>
-        </div>
-        <div class="plan">
-          <p class="plan-name">Plus</p>
-          <p class="plan-size">1TB</p>
-          <p class="plan-price">£18<span>/month</span></p>
-          <div class="gauge"><i style="width:68%;"></i></div>
-          <p class="plan-desc">Serious archives — years of photos, full backups, no second-guessing what to keep.</p>
-        </div>
-        <div class="plan">
-          <p class="plan-name">Elite</p>
-          <p class="plan-size">2TB</p>
-          <p class="plan-price">£30<span>/month</span></p>
-          <div class="gauge"><i style="width:100%;"></i></div>
-          <p class="plan-desc">Multiple devices, full media libraries, total peace of mind.</p>
-        </div>
-      </div>
+    <h2><span class="num">4.</span> Payment &amp; term</h2>
+    <ul>
+      <li>Plans are billed monthly and renew automatically unless cancelled.</li>
+      <li>Payment is due at the start of each billing period; access may be suspended if payment fails and is not resolved within 7 days.</li>
+      <li>The Customer may cancel at any time; cancellation takes effect at the end of the current billing period, with no partial refund for the remaining days.</li>
+      <li>The Provider may change prices with at least 30 days' notice to existing Customers.</li>
+    </ul>
 
-      <p class="compare-strip">Compare: Google One runs <strong>£7.99/mo</strong> for 200GB and <strong>£15.99/mo</strong> for 2TB. Same reliability, better value — and it's not owned by a faceless megacorp.</p>
-    </section>
+    <h2><span class="num">5.</span> Data protection &amp; privacy</h2>
+    <p>The Provider will take reasonable technical measures to keep Customer data private and encrypted, and will not access, scan, sell, or share Customer files, and will not use them for advertising or profiling.</p>
+    <p>Because this service involves storing personal data (such as photos containing identifiable people) on the Provider's infrastructure, both parties should be aware that UK data protection law (UK GDPR and the Data Protection Act 2018) may apply. See the note at the end of this page — this is flagged for the Provider to check, not resolved by this template.</p>
 
-    <section id="how">
-      <p class="section-label">How it works</p>
-      <h2>Three steps, no forms to fight with.</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num"></span>
-          <div><h3>Message me with the tier you want</h3><p>Tell me which plan fits, and I'll confirm there's a bay free for you.</p></div>
-        </div>
-        <div class="step">
-          <span class="step-num"></span>
-          <div><h3>I set up your private space</h3><p>Encrypted, access-controlled, and ready for your devices — usually same day.</p></div>
-        </div>
-        <div class="step">
-          <span class="step-num"></span>
-          <div><h3>Upload from anywhere</h3><p>Phone, tablet, or PC — your files sync and archive automatically from there.</p></div>
-        </div>
-      </div>
-    </section>
+    <h2><span class="num">6.</span> Acceptable use</h2>
+    <p>The Customer agrees not to use the storage space to store or distribute:</p>
+    <ul>
+      <li>Illegal content of any kind, including material that infringes copyright or third-party rights.</li>
+      <li>Malware, or files intended to disrupt or gain unauthorised access to systems.</li>
+      <li>Content that harasses, threatens, or endangers others.</li>
+    </ul>
+    <p>The Provider reserves the right to suspend or terminate access, without refund, for a clear breach of this section.</p>
 
-    <section id="contact" class="contact">
-      <p class="section-label">Get in touch</p>
-      <div class="contact-box">
-        <h2 style="margin-bottom:8px;">Spaces are limited — I've only got so much room on the box.</h2>
-        <p>Drop me a message with the plan you're after and I'll let you know if there's a bay open.</p>
-        <div class="contact-actions">
-          <a class="btn btn-primary" href="mailto:Reece.Feetenby-IT.Engineering@outlook.com?subject=Spare%20Room%20-%20I'm%20interested">Email me</a>
-        </div>
-      </div>
-    </section>
+    <h2><span class="num">7.</span> Backups, availability &amp; data loss</h2>
+    <p>Files are archived in addition to the primary copy held on the server. However, this is a home-based service run on a limited number of physical machines, not a redundant, geographically distributed data centre. The Provider does not guarantee 100% uptime or that data can never be lost (for example, in the event of simultaneous hardware failure, fire, flood, or theft at the Provider's premises).</p>
+    <p>The Customer is strongly encouraged to keep an independent copy of anything irreplaceable and not to rely on Reeces-IT as a sole backup for critical files.</p>
+
+    <h2><span class="num">8.</span> Security</h2>
+    <ul>
+      <li>Access to Customer storage is private and access-controlled.</li>
+      <li>Data is encrypted; specific encryption methods may be shared with the Customer on request.</li>
+      <li>The Customer is responsible for keeping their own login credentials secure.</li>
+    </ul>
+
+    <h2><span class="num">9.</span> Termination &amp; suspension</h2>
+    <p>Either party may end this agreement at any time. The Provider may suspend or terminate an account immediately for breach of the acceptable use policy, non-payment, or if continuing to provide the service becomes impractical (for example, hardware failure or discontinuing the service). Where reasonably possible, the Provider will give notice and an opportunity for the Customer to retrieve their files before deletion.</p>
+
+    <h2><span class="num">10.</span> Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, the Provider's liability for any loss arising from use of the service (including data loss or service downtime) is limited to the fees paid by the Customer in the 3 months prior to the event giving rise to the claim. This does not exclude liability that cannot be limited under law, such as liability for death or personal injury caused by negligence, or fraud.</p>
+
+    <h2><span class="num">11.</span> Changes to these terms</h2>
+    <p>The Provider may update these terms from time to time, for example to reflect new plans, additional servers, or changes to how the service is run. Material changes will be communicated to active Customers in advance of taking effect.</p>
+
+    <h2><span class="num">12.</span> Governing law</h2>
+    <p>This agreement is governed by the laws of England and Wales, and both parties submit to the exclusive jurisdiction of the courts of England and Wales.</p>
+
+    <h2><span class="num">13.</span> Contact</h2>
+    <p>Reece Feetenby — Reeces-IT<br>Email: <a href="mailto:Reece.Feetenby-IT.Engineering@outlook.com">Reece.Feetenby-IT.Engineering@outlook.com</a></p>
+
+    <div class="note-box">
+      <h2 style="margin-top:0;">Before you rely on this</h2>
+      <p>This is a starting template, not a finished legal document, and I'm not a lawyer. Two things worth getting proper advice on before relying on it:</p>
+      <p><strong>1) Data protection</strong> — storing other people's personal data (photos, documents) as a service may mean you need to register with the ICO and meet UK GDPR obligations around security, breach notification, and data subject rights. Worth checking directly, especially since this is run personally rather than through a registered company.</p>
+      <p><strong>2) Consumer contract law</strong> — if any customers are individuals buying for personal use, UK consumer protection law (e.g. rights around cancellation and service quality) applies on top of whatever this page says. A solicitor or a small-business legal advisor can confirm the wording holds up.</p>
+    </div>
   </div>
 </main>
 
 <footer>
-  <div class="wrap" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; width:100%;">
-    <span>SPARE ROOM — private storage on a home server</span>
+  <div class="wrap">
+    <span>REECES-IT — private storage on a home server</span>
     <span>© <span id="year"></span></span>
   </div>
 </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Render the bay grid: 8 bays, 3 filled (matches "3 of 8 open" copy above)
-  const bays = document.getElementById('bayGrid');
-  const total = 8, filled = 5; // 5 filled = 3 open
-  for (let i = 0; i < total; i++) {
-    const b = document.createElement('div');
-    b.className = 'bay' + (i < filled ? ' filled' : '');
-    bays.appendChild(b);
-  }
-</script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
 </body>
 </html>
